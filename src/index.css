@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 0px) and (max-width: 768px) {
+    .container{
+        width: 90vw;
+    }
+}
+
+.status_shadow {
+    transition: all 0.3s linear;
+    box-shadow: 0 0 10px #2323231e;
+}
