@@ -13,6 +13,9 @@ import { Provider } from 'react-redux'
 import { store } from "./Redux/store/"
 import Frontend from './pages/frontend'
 import Admin from './AdminPage/admin/admin'
+import JuniorFrontend from './components/juniorFrontend'
+import MiddleFrontend from './components/middleFrontend'
+import SeniorFrontend from './components/seniorFrontend'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +33,18 @@ const router = createBrowserRouter([
       {
         path: "/frontend",
         element: <Frontend />
+      },
+      {
+        path: "/frontend/junior",
+        element: <JuniorFrontend />
+      },
+      {
+        path: "/frontend/middle",
+        element: <MiddleFrontend />
+      },
+      {
+        path: "/frontend/senior",
+        element: <SeniorFrontend />
       },
       {
         path: "/register",

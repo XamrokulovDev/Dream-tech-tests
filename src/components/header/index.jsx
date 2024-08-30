@@ -27,7 +27,7 @@ const Header = () => {
         >
           Ushbu test dasturida sizning HTML, CSS, JavaScript va backend dasturlash tillaridagi bilimlaringiz sinovdan o'tkaziladi. Har bir savolga to'g'ri javob bering va natijalaringizni ko'ring!
         </motion.p>
-        <motion.div
+        {/* <motion.div
           className="w-full flex justify-center"
           ref={buttonRef}
           initial={{ opacity: 0, scale: 0.8 }}
@@ -37,7 +37,7 @@ const Header = () => {
           <a href="#info" className="bg-green-500 text-md text-black font-semibold rounded-md px-8 py-3 mt-3 uppercase">
             Tezda Boshlash
           </a>
-        </motion.div>
+        </motion.div> */}
       </div>
     </header>
   );

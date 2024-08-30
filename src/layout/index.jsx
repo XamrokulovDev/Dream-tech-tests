@@ -9,7 +9,10 @@ const Routerlayout = () => {
   const isAuthPage = 
     location.pathname === '/login' ||
     location.pathname === '/register' ||
-    location.pathname.startsWith('/_admin_panel'); 
+    location.pathname.startsWith('/_admin_panel') ||
+    location.pathname === "/frontend/junior" ||
+    location.pathname === "/frontend/middle" ||
+    location.pathname === "/frontend/senior"
 
   return (
     <>

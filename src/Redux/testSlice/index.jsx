@@ -1,53 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// API manzilini oling
 const api = import.meta.env.VITE_API;
 
-// Redux slice yaratish
-const dataSlice = createSlice({
-  name: "data",
+export const fetchData = createAsyncThunk("frontend/fetchData", async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const response = await axios.get(`${api}test/test/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data)
+    return response.data;
+  } catch (error) {
+    console.error("API chaqiruvida xato:", error);
+    throw error;
+  }
+});
+
+const frontendSlice = createSlice({
+  name: "frontend",
   initialState: {
     data: [],
     loading: false,
     error: null,
   },
-  reducers: {
-    fetchDataStart: (state) => {
-      state.loading = true;
-    },
-    fetchDataSuccess: (state, action) => {
-      state.loading = false;
-      state.data = action.payload;
-    },
-    fetchDataFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload; // Ma'lumotlar statega yuklanadi
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
-export const { fetchDataStart, fetchDataSuccess, fetchDataFailure } =
-  dataSlice.actions;
-
-export const fetchData = () => async (dispatch) => {
-  dispatch(fetchDataStart());
-
-  // localStorage'dan 'access' nomli tokenni olish
-  const token = localStorage.getItem('token');
-
-  try {
-    const response = await axios.get(`${api}test/bolim/`, {
-      headers: {
-        Authorization: `Bearer ${token}` // Tokenni so'rov sarlavhasiga qo'shish
-      }
-    });
-    console.log(response.data);
-    dispatch(fetchDataSuccess(response.data));
-  } catch (error) {
-    dispatch(fetchDataFailure(error.message));
-  }
-};
-
-export default dataSlice.reducer;
+export default frontendSlice.reducer;
